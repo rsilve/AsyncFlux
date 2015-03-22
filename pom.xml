@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <packaging>jar</packaging>
+    <groupId>org.webjars</groupId>
+    <artifactId>AsyncFlux</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Asynchrone Facebook flux</name>
+    <description>WebJar for Asynchrone Facebook flux</description>
+    <url>http://webjars.org</url>
+
+    <developers>
+       <developer>
+           <id>rsilve</id>
+           <name>Robert Silve</name>
+           <email>robert@silve.net</email>
+       </developer>
+   </developers>
+
+   <licenses>
+       <license>
+           <name>MIT</name>
+		<url>http://www.opensource.org/licenses/mit-license.php</url>
+           <distribution>repo</distribution>
+       </license>
+   </licenses>
+
+   <scm>
+       <url>http://github.com/webjars/Flux</url>
+       <connection>scm:git:https://github.com/webjars/Flux.git</connection>
+       <developerConnection>scm:git:https://github.com/webjars/Flux.git</developerConnection>
+       <tag>HEAD</tag>
+   </scm>
+   
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <upstreamVersion>0.0.1</upstreamVersion>
+	    <sourceUrl>https://github.com/facebook/flux/archive/${upstreamVersion}.zip</sourceUrl>
+		<destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${upstreamVersion}</destDir>
+        <requirejs>
+            {
+                "paths": { "Dispatcher": "Dispatcher.min.js" },
+                "shim": { "Dispatcher": [ "Dispatcher" ] }
+            }
+        </requirejs>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                            <target>
+                                <echo message="moving resources" />
+                                <move todir="${destDir}">
+                                    <fileset dir="dist/" includes="*" />
+                                </move>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.5</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <targetPath>${destDir}</targetPath>
+            </resource>
+        </resources>
+    </build>
+
+</project>
