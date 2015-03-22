@@ -1,7 +1,7 @@
 var expect = require("expect.js");
 var sinon = require("sinon");
 
-var Q = require("Q");
+var Q = require("q");
 
 var Dispatcher = require("../../src/js/dispatcher");
 

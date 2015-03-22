@@ -7,7 +7,7 @@
         define(["Q", "ExecutionContext"], factory(Q, ExecutionContext));
     } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         // Node js
-        var Q = require("Q");
+        var Q = require("q");
         var ExecutionContext = require("./ExecutionContext");
         module.exports = factory(Q, ExecutionContext);
     } else {

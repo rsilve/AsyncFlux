@@ -7,7 +7,7 @@
         define(["Q"], factory(Q));
     } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         // Node js
-        var Q = require("Q");
+        var Q = require("q");
         module.exports = factory(Q);
     } else {
         // Global Browser
